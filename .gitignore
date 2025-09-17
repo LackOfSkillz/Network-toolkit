@@ -12,6 +12,15 @@ venv/
 # SQLite DB
 dev.db
 backend/dev.db
+backend/.cred_key
+
+# Private keys and pem files
+*.pem
+*.key
+id_rsa
+id_rsa.pub
+*.crt
+*.cert
 
 # Node
 node_modules/

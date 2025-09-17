@@ -74,7 +74,7 @@ As a network administrator, I want to use a web-based application to track, audi
 - **FR-001**: System MUST provide role-based access control for users (e.g., admin, user).
 - **FR-002**: System MUST log all network configuration changes to an audit trail.
 - **FR-003**: System MUST allow users to view and compare different versions of network configurations.
-- **FR-004**: System MUST send notifications to users upon significant network changes. [NEEDS CLARIFICATION: What constitutes a "significant" change? What notification channels are supported - email, SMS, in-app?]
+- **FR-004**: System MUST send notifications to users upon significant network changes. A "significant change" is defined as any modification, addition, or deletion of a firewall rule. The initial implementation will support in-app notifications.
 - **FR-005**: System MUST support importing and exporting network configurations in various formats (XML, JSON, CSV).
 - **FR-006**: System MUST parse firewall XML configurations (e.g., WatchGuard) to extract rules, objects, and addresses.
 - **FR-007**: System MUST generate a network topology map from parsed configuration data.
@@ -82,7 +82,10 @@ As a network administrator, I want to use a web-based application to track, audi
 - **FR-009**: System MUST provide a dashboard to display NERC CIP compliance status.
 - **FR-010**: System MUST generate compliance reports with actionable recommendations.
 - **FR-011**: System MUST allow users to perform interactive connectivity tests.
-- **FR-012**: System MUST be able to SSH into network devices to validate configurations. [NEEDS CLARIFICATION: How are credentials for SSH access managed and secured?]
+- **FR-012**: System MUST be able to SSH into network devices to validate configurations. The system will support two methods for managing SSH credentials:
+    - **Predefined Credentials**: A settings page will allow users to create and manage groups of credentials (e.g., "Firewall Credentials," "Switch Credentials").
+    - **Individual Credentials**: On the endpoint configuration page for a specific device, the user can either select a predefined credential group from a dropdown or provide a unique credential for that device.
+    All credentials will be stored encrypted in the database.
 - **FR-013**: System MUST support the management of multiple network environments simultaneously.
 - **FR-014**: The user dashboard MUST be customizable.
 - **FR-015**: System MUST be able to ingest and parse multiple firewall XML configurations simultaneously.
@@ -95,6 +98,72 @@ As a network administrator, I want to use a web-based application to track, audi
 - **AuditLog**: Represents a record of a change made to the network configuration.
 - **ComplianceReport**: Represents a generated report on NERC CIP compliance.
 - **DiagnosticTest**: Represents the results of a connectivity test.
+
+### Detailed Visualization Design
+
+#### Core Concept
+The primary visualization will be a dynamic and interactive force-directed graph representing the network topology. This will be built using a library like D3.js or Vis.js integrated with the React frontend.
+
+#### Visual Elements
+- **Nodes**: Each network device (e.g., firewall, router, switch, host) will be represented as a node.
+  - **Icons**: Nodes will have distinct icons to represent the device type.
+  - **Color**: Node color will indicate status (e.g., green for online, red for issues).
+  - **Labels**: Nodes will be labeled with their hostname or IP address.
+- **Links**: Connections between devices will be represented by links (lines).
+  - **Style**: Link style (e.g., thickness, color) will represent connection properties like speed or VLAN.
+  - **Direction**: Arrows will indicate the direction of traffic flow where applicable.
+
+#### Interactivity
+- **Hover**: Hovering over a node or link will display a tooltip with summary information.
+- **Click**: Clicking a node will open a detailed information panel with its full configuration, interfaces, and associated rules.
+- **Zoom/Pan**: Users will be able to zoom and pan to navigate large network maps.
+- **Search**: A search bar will allow users to find and highlight specific devices.
+
+#### Firewall Rule Visualization
+- **Path Analysis**: When a user selects two nodes, the application will highlight the path between them and display the applicable firewall rules in order.
+- **Rule Overlay**: A toggleable "rule view" will overlay rule information on the map, for example, by coloring links based on "allow" or "deny" actions.
+
+#### Alternative Views
+- **Topology View**: The default interactive graph view.
+- **List View**: A searchable and sortable table of all network devices and their properties.
+- **Rule-Based View**: A view focused on firewall rules, allowing users to filter rules and see which devices and connections they affect on the topology map.
+
+### Enhanced Diagnostics & "What-If" Scenarios
+- **Automated Troubleshooting**: The diagnostic tool will automatically analyze connectivity paths and identify the root cause of issues (e.g., "Port 443 is blocked by firewall rule #27 on firewall-dmz-01.").
+- **Configuration Drift Detection**: The application will periodically check the live configuration of devices and compare them to the last uploaded version, alerting users to any discrepancies.
+- **"What-If" Rule Modeling**: Users will be able to simulate adding or modifying a firewall rule to see the potential impact on network traffic before applying the change.
+
+### Deeper Auditing & Compliance
+- **Custom Compliance Policies**: In addition to NERC CIP, users will be able to create their own compliance policies (e.g., "No 'any-to-any' rules are allowed.").
+- **Automated Remediation Suggestions**: When a compliance violation is found, the application will suggest the specific change needed to fix it.
+
+### Improved User Experience & Collaboration
+- **Dashboard Widgets**: The customizable dashboard will support widgets for "Recent Configuration Changes," "Top Blocked Ports," "Compliance Status Overview," and more.
+- **Saved & Sharable Views**: Users will be able to save their current view of the network map (including filters, zoom level, and highlighted nodes) and share it with other users via a unique link.
+
+### Non-Functional Requirements
+- **Detailed Error Handling**: The application will provide clear and informative error messages for all foreseeable error conditions (e.g., malformed XML file, unreachable device, incorrect credentials).
+- **Logging Strategy**: All significant events (e.g., user logins, configuration changes, errors) will be logged in a structured JSON format to a central logging service.
+
+### UI/UX Enhancements
+
+#### Onboarding & First-Time User Experience
+- **Welcome Tour**: A brief, interactive tour will guide new users through the main features of the application.
+- **Helpful Empty States**: When there is no data to display, the application will show helpful messages and prompts to guide the user.
+- **Sample Data**: Users will have the option to load a sample configuration file to explore the application's features.
+
+#### Enhancing the Network Map
+- **Layout Options**: Users will be able to switch between different graph layouts (e.g., hierarchical, force-directed).
+- **Custom Grouping & Annotations**: Users will be able to draw boxes around groups of nodes and add notes directly to the network map.
+
+#### Streamlining Workflows
+- **Drag-and-Drop Upload**: Users will be able to upload configuration files by dragging and dropping them into the application.
+- **Context Menus**: Right-clicking on a device in the network map will open a context menu with relevant actions.
+- **Keyboard Shortcuts**: The application will support keyboard shortcuts for common actions.
+
+#### Visual Polish & Theming
+- **Light/Dark Mode**: The application will offer both a light and a dark theme.
+- **Responsive Design**: The application will be usable on a variety of screen sizes, including tablets.
 
 ---
 

@@ -1,0 +1,153 @@
+openapi: 3.0.0
+info:
+  title: Network Change Tracking and Auditing Platform API
+  version: 1.0.0
+paths:
+  /auth/login:
+    post:
+      summary: User login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Successful login
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+  /configurations:
+    get:
+      summary: Get all network configurations
+      responses:
+        '200':
+          description: A list of network configurations
+    post:
+      summary: Create a new network configuration
+      responses:
+        '201':
+          description: Network configuration created
+  /configurations/{id}:
+    get:
+      summary: Get a specific network configuration
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A single network configuration
+    put:
+      summary: Update a network configuration
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Network configuration updated
+    delete:
+      summary: Delete a network configuration
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Network configuration deleted
+  /what-if:
+    post:
+      summary: Simulate the impact of a new firewall rule
+      responses:
+        '200':
+          description: Simulation results
+  /drift-detection:
+    post:
+      summary: Trigger a configuration drift detection job
+      responses:
+        '202':
+          description: Drift detection job accepted
+  /custom-compliance-policies:
+    get:
+      summary: Get all custom compliance policies
+      responses:
+        '200':
+          description: A list of custom compliance policies
+    post:
+      summary: Create a new custom compliance policy
+      responses:
+        '201':
+          description: Custom compliance policy created
+  /saved-views:
+    get:
+      summary: Get all saved views
+      responses:
+        '200':
+          description: A list of saved views
+    post:
+      summary: Create a new saved view
+      responses:
+        '201':
+          description: Saved view created
+  /dashboard/widgets:
+    get:
+      summary: Get all dashboard widgets for the current user
+      responses:
+        '200':
+          description: A list of dashboard widgets
+    post:
+      summary: Create a new dashboard widget
+      responses:
+        '201':
+          description: Dashboard widget created
+  /credential-groups:
+    get:
+      summary: Get all credential groups
+      responses:
+        '200':
+          description: A list of credential groups
+    post:
+      summary: Create a new credential group
+      responses:
+        '201':
+          description: Credential group created
+  /credential-groups/{id}:
+    put:
+      summary: Update a credential group
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Credential group updated
+    delete:
+      summary: Delete a credential group
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Credential group deleted
