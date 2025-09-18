@@ -49,12 +49,14 @@ from backend.src.api import drift_detection as drift_detection_api
 from backend.src.api import custom_compliance_policies as custom_compliance_api
 from backend.src.api import saved_views as saved_views_api
 from backend.src.api import dashboard_widgets as dashboard_widgets_api
+from backend.src.api import credential_groups as credential_groups_api
 
 app.include_router(what_if_api.router)
 app.include_router(drift_detection_api.router)
 app.include_router(custom_compliance_api.router)
 app.include_router(saved_views_api.router)
 app.include_router(dashboard_widgets_api.router)
+app.include_router(credential_groups_api.router)
 
 
 # Mount Socket.IO ASGI app at /socket.io
