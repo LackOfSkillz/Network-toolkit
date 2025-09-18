@@ -6,20 +6,51 @@ const SocketContext = createContext(null)
 export function SocketProvider({ children }){
   const [connected, setConnected] = useState(false)
   const socketRef = useRef(null)
+  const tokenRef = useRef(null)
 
-  useEffect(()=>{
-    // connect to backend socket.io endpoint
+  // helper to (re)connect with the provided token
+  function connectWithToken(token){
     try{
-      const socket = io('/', { path: '/socket.io' })
+      // disconnect existing socket first
+      if(socketRef.current){
+        try{ socketRef.current.disconnect() }catch(e){}
+        socketRef.current = null
+      }
+
+      const opts = { path: '/socket.io', auth: {} }
+      if(token) opts.auth = { token }
+      const socket = io('/', opts)
       socketRef.current = socket
       socket.on('connect', () => setConnected(true))
       socket.on('disconnect', () => setConnected(false))
-
-      return () => {
-        try{ socket.disconnect() }catch(e){}
-      }
+      // forward any connection errors silently
+      socket.on('connect_error', () => {})
     }catch(e){
-      // graceful fallback: nothing to do if client lib can't connect
+      // graceful fallback
+    }
+  }
+
+  useEffect(()=>{
+    // initial connect using token from localStorage
+    const initialToken = localStorage.getItem('authToken')
+    tokenRef.current = initialToken
+    connectWithToken(initialToken)
+
+    // listen for token changes (other tabs) and reconnect
+    function handleStorage(e){
+      if(e.key === 'authToken'){
+        const newToken = e.newValue
+        if(newToken !== tokenRef.current){
+          tokenRef.current = newToken
+          connectWithToken(newToken)
+        }
+      }
+    }
+    window.addEventListener('storage', handleStorage)
+
+    return ()=>{
+      window.removeEventListener('storage', handleStorage)
+      try{ if(socketRef.current) socketRef.current.disconnect() }catch(e){}
     }
   }, [])
 

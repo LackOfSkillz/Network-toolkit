@@ -3,12 +3,15 @@ import ChartWidget from '../components/ChartWidget'
 import TableWidget from '../components/TableWidget'
 import EmptyState from '../components/EmptyState'
 import useSocket from '../realtime/useSocket'
-import { loadSampleData } from '../utils/sampleDataLoader'
+import { loadSampleData, resetSampleData, sampleWidgets, sampleSavedViews, sampleConfigurations, sampleCredentialGroups } from '../utils/sampleDataLoader'
+import SampleDataPreview from '../components/SampleDataPreview'
 
 export default function DashboardPage(){
   const [widgets, setWidgets] = useState([])
   const [loadingSample, setLoadingSample] = useState(false)
   const [sampleStatus, setSampleStatus] = useState(null)
+  const [sampleProgress, setSampleProgress] = useState(null)
+  const [previewTarget, setPreviewTarget] = useState(null)
 
   useEffect(()=>{
     const token = localStorage.getItem('authToken')
@@ -36,8 +39,9 @@ export default function DashboardPage(){
   async function onLoadSample(){
     setLoadingSample(true)
     setSampleStatus(null)
+    setSampleProgress({ step: 0, total: 4 })
     try{
-      const res = await loadSampleData()
+      const res = await loadSampleData({ onProgress: (p)=> setSampleProgress(p) })
       setSampleStatus(res)
       // if backend returned widgets, refresh
       if(res && res.widgets){
@@ -57,13 +61,30 @@ export default function DashboardPage(){
     } finally { setLoadingSample(false) }
   }
 
+  function onResetSample(){
+    resetSampleData()
+    setWidgets([])
+    setSampleStatus({ reset: true })
+  }
+
   return (
     <div>
       <h1>Dashboard</h1>
       <div style={{marginBottom:12}}>
         <button onClick={onLoadSample} disabled={loadingSample} style={{marginRight:8}}>{loadingSample ? 'Loading...' : 'Load sample data'}</button>
-        {sampleStatus && <span style={{color: sampleStatus.error ? 'red' : 'green'}}>{sampleStatus.error ? sampleStatus.error : 'Sample data loaded'}</span>}
+        <button onClick={onResetSample} style={{marginRight:8}}>Reset sample data</button>
+        <label style={{marginRight:8}}>Preview:</label>
+        <select value={previewTarget || ''} onChange={(e)=> setPreviewTarget(e.target.value || null)}>
+          <option value="">-- none --</option>
+          <option value="widgets">widgets</option>
+          <option value="savedViews">savedViews</option>
+          <option value="configurations">configurations</option>
+          <option value="credentialGroups">credentialGroups</option>
+        </select>
+        {sampleProgress && <span style={{marginLeft:12}}>Step {sampleProgress.index+1}/{sampleProgress.total}: {sampleProgress.step}</span>}
+        {sampleStatus && <span style={{color: sampleStatus.error ? 'red' : 'green', marginLeft:12}}>{sampleStatus.error ? sampleStatus.error : (sampleStatus.reset ? 'Sample data reset' : 'Sample data loaded')}</span>}
       </div>
+      <SampleDataPreview data={previewTarget === 'widgets' ? sampleWidgets[0] : previewTarget === 'savedViews' ? sampleSavedViews[0] : previewTarget === 'configurations' ? sampleConfigurations[0] : previewTarget === 'credentialGroups' ? sampleCredentialGroups[0] : null} />
       {widgets.length === 0 ? (
         <EmptyState title="No widgets" message="You don't have any widgets yet. Add some from the dashboard settings." />
       ) : (
