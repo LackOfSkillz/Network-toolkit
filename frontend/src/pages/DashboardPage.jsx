@@ -1,7 +1,8 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useCallback} from 'react'
 import ChartWidget from '../components/ChartWidget'
 import TableWidget from '../components/TableWidget'
 import EmptyState from '../components/EmptyState'
+import useSocket from '../realtime/useSocket'
 
 export default function DashboardPage(){
   const [widgets, setWidgets] = useState([])
@@ -14,6 +15,20 @@ export default function DashboardPage(){
       return r.json()
     }).then(setWidgets).catch(()=>setWidgets([]))
   }, [])
+
+  const handleWidgetUpdated = useCallback((payload)=>{
+    // payload expected to be { id, action, widget }
+    if(!payload) return
+    setWidgets(prev => {
+      const { action, widget } = payload
+      if(action === 'created') return [widget, ...prev]
+      if(action === 'updated') return prev.map(w=> w.id === widget.id ? widget : w)
+      if(action === 'deleted') return prev.filter(w=> w.id !== widget.id)
+      return prev
+    })
+  }, [])
+
+  useSocket('widget_updated', handleWidgetUpdated)
 
   return (
     <div>
