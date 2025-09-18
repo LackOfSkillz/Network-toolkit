@@ -1,3 +1,10 @@
+/**
+ * CredentialGroupsPage
+ *
+ * Simple management UI for credential groups used by the demo. This page
+ * lists groups and allows simple interactions. The comments here explain
+ * purpose to non-developers; no functional change is made.
+ */
 import React, {useEffect, useState} from 'react'
 import axios from 'axios'
 import EmptyState from '../../components/EmptyState'

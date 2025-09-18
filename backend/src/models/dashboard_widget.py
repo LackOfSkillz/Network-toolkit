@@ -3,6 +3,12 @@ from sqlalchemy.sql import func
 from backend.src.db import Base
 
 
+"""
+Defines a dashboard widget record. Widgets store a `config` blob (string)
+that the UI understands to render charts/tables.
+"""
+
+
 class DashboardWidget(Base):
     __tablename__ = "dashboard_widgets"
     __table_args__ = {"extend_existing": True}

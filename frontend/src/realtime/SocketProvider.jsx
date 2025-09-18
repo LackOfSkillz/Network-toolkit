@@ -3,6 +3,15 @@ import { io } from 'socket.io-client'
 
 const SocketContext = createContext(null)
 
+/**
+ * SocketProvider
+ *
+ * Provides a React context with a connected socket.io client. Components
+ * can use `useSocket` or the context to subscribe to realtime events.
+ *
+ * This comment is for readers unfamiliar with React — it is non-functional
+ * and only intended to make the file easier to understand.
+ */
 export function SocketProvider({ children }){
   const [connected, setConnected] = useState(false)
   const socketRef = useRef(null)

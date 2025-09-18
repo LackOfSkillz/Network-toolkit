@@ -1,3 +1,9 @@
+/**
+ * TableWidget
+ *
+ * Minimal table-style widget used on the demo dashboard. Kept simple for
+ * clarity; this comment is non-functional documentation.
+ */
 import React from 'react'
 
 export default function TableWidget({name, config}){

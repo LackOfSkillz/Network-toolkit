@@ -1,3 +1,19 @@
+"""
+What-if modeling service.
+
+This small service wraps the internal rule engine to provide a deterministic
+analysis of how adding a firewall rule would change packet decisions across a
+set of devices. The input `network_state` is a mapping of device names to a
+simple state dict (allowed ports, existing rules). The service returns a
+report per-device showing the decision before and after the new rule.
+
+Design notes:
+- Uses the pure `evaluate_rules` function for deterministic behavior.
+- Uses a simple heuristic to decide whether a deny rule applies to devices
+  based on their `allowed` entries — this keeps reports focused and
+  predictable for demo purposes.
+"""
+
 from typing import List, Dict, Any
 from backend.src.services.rule_engine import evaluate_rules
 
@@ -5,17 +21,19 @@ from backend.src.services.rule_engine import evaluate_rules
 class WhatIfService:
     """What-if modeling service that uses a deterministic rule engine.
 
-    network_state: device_name -> { 'ip': str, 'rules': [rule_dicts...] }
+    network_state: device_name -> { 'ip': str, 'rules': [rule_dicts...], 'allowed': [...] }
     """
 
     def __init__(self, network_state: Dict[str, Dict[str, Any]] | None = None):
         self.network_state = network_state or {}
 
     def simulate_add_rule(self, rule: Dict[str, Any]) -> Dict[str, Any]:
-        """Simulate adding a firewall rule by inserting it into each device's rule set
-        and evaluating a representative packet to see the decision change.
+        """Simulate adding a firewall rule and return per-device impact report.
 
-        rule should include fields compatible with rule_engine (action, protocol, port, priority, src_cidr, dst_cidr)
+        The `rule` dict should be compatible with the project's rule engine
+        (fields like action/protocol/port). The function returns a dict with
+        the original rule and a `device_reports` mapping containing the
+        decision before and after applying the rule for each device.
         """
         report = {"rule": rule, "device_reports": {}}
 
@@ -32,10 +50,9 @@ class WhatIfService:
 
             # determine whether to apply the new rule to this device
             apply_rule = True
-            # If the new rule is a deny, only apply it to devices that currently
-            # have an allowed entry matching the same proto/port — otherwise a
-            # deny for an unrelated port shouldn't be considered an "impact" on
-            # that device in the what-if analysis.
+            # Heuristic: a deny rule only affects devices that currently have
+            # an allowed entry matching the same proto/port. This keeps the
+            # what-if report focused on likely impacts.
             if (rule.get("action") or rule.get("act")) == "deny":
                 match_found = False
                 for ent in allowed_entries:

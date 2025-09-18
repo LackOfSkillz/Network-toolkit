@@ -1,8 +1,17 @@
 from typing import Dict, Any, List
 
 
+"""
+Suggest remediation hints based on a drift detection report.
+
+The output is a mapping device -> list of hints; each hint is a simple dict
+with an action and rule payload that can be fed into the remediation flow.
+This module is intentionally minimal so test authors can assert on hint
+structures without heavy dependencies.
+"""
+
+
 class TroubleshootingService:
-    """Provide simple remediation hints given a drift report."""
 
     def suggest(self, drift_report: Dict[str, Any]) -> Dict[str, List[Dict[str, Any]]]:
         suggestions: Dict[str, List[Dict[str, Any]]] = {}

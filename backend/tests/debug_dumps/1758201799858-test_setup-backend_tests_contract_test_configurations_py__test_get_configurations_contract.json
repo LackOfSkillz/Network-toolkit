@@ -1,0 +1,157 @@
+{
+  "label": "test_setup",
+  "nodeid": "backend/tests/contract/test_configurations.py::test_get_configurations_contract",
+  "timestamp": 1758201799858,
+  "sys_modules": [
+    "backend.src.models",
+    "backend.src.models.audit_log",
+    "backend.src.models.compliance_report",
+    "backend.src.models.credential_group",
+    "backend.src.models.custom_compliance_policy",
+    "backend.src.models.dashboard_widget",
+    "backend.src.models.diagnostic_test",
+    "backend.src.models.firewall_rule",
+    "backend.src.models.network_configuration",
+    "backend.src.models.network_device",
+    "backend.src.models.saved_view",
+    "backend.src.models.user"
+  ],
+  "mappers": [
+    {
+      "name": "DiagnosticTest",
+      "module": "models.diagnostic_test",
+      "id": 558642896
+    },
+    {
+      "name": "FirewallRule",
+      "module": "backend.src.models.firewall_rule",
+      "id": 559903376
+    },
+    {
+      "name": "NetworkDevice",
+      "module": "backend.src.models.network_device",
+      "id": 565136624
+    },
+    {
+      "name": "User",
+      "module": "backend.src.models.user",
+      "id": 559763072
+    },
+    {
+      "name": "NetworkConfiguration",
+      "module": "models.network_configuration",
+      "id": 558538352
+    },
+    {
+      "name": "SavedView",
+      "module": "backend.src.models.saved_view",
+      "id": 565295824
+    },
+    {
+      "name": "CustomCompliancePolicy",
+      "module": "models.custom_compliance_policy",
+      "id": 558702832
+    },
+    {
+      "name": "User",
+      "module": "models.user",
+      "id": 558496912
+    },
+    {
+      "name": "ComplianceReport",
+      "module": "backend.src.models.compliance_report",
+      "id": 565249344
+    },
+    {
+      "name": "NetworkDevice",
+      "module": "models.network_device",
+      "id": 558543760
+    },
+    {
+      "name": "ComplianceReport",
+      "module": "models.compliance_report",
+      "id": 558613200
+    },
+    {
+      "name": "CustomCompliancePolicy",
+      "module": "backend.src.models.custom_compliance_policy",
+      "id": 565320672
+    },
+    {
+      "name": "AuditLog",
+      "module": "models.audit_log",
+      "id": 558585472
+    },
+    {
+      "name": "NetworkConfiguration",
+      "module": "backend.src.models.network_configuration",
+      "id": 559911520
+    },
+    {
+      "name": "DashboardWidget",
+      "module": "models.dashboard_widget",
+      "id": 558668592
+    },
+    {
+      "name": "CredentialGroup",
+      "module": "backend.src.models.credential_group",
+      "id": 565298048
+    },
+    {
+      "name": "FirewallRule",
+      "module": "models.firewall_rule",
+      "id": 558565248
+    },
+    {
+      "name": "SavedView",
+      "module": "models.saved_view",
+      "id": 558670544
+    },
+    {
+      "name": "CredentialGroup",
+      "module": "models.credential_group",
+      "id": 558641120
+    },
+    {
+      "name": "AuditLog",
+      "module": "backend.src.models.audit_log",
+      "id": 565165872
+    },
+    {
+      "name": "DashboardWidget",
+      "module": "backend.src.models.dashboard_widget",
+      "id": 565323232
+    },
+    {
+      "name": "DiagnosticTest",
+      "module": "backend.src.models.diagnostic_test",
+      "id": 565276192
+    }
+  ],
+  "classes": [],
+  "relationships": [],
+  "relationship_errors": [
+    "One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[NetworkConfiguration(network_configurations)]'. Original exception was: reverse_property 'configuration' on relationship NetworkConfiguration.devices references relationship NetworkDevice.configuration, which does not reference mapper Mapper[NetworkConfiguration(network_configurations)]",
+    "One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[NetworkConfiguration(network_configurations)]'. Original exception was: reverse_property 'configuration' on relationship NetworkConfiguration.devices references relationship NetworkDevice.configuration, which does not reference mapper Mapper[NetworkConfiguration(network_configurations)]",
+    "One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[NetworkConfiguration(network_configurations)]'. Original exception was: reverse_property 'configuration' on relationship NetworkConfiguration.devices references relationship NetworkDevice.configuration, which does not reference mapper Mapper[NetworkConfiguration(network_configurations)]",
+    "One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[NetworkConfiguration(network_configurations)]'. Original exception was: reverse_property 'configuration' on relationship NetworkConfiguration.devices references relationship NetworkDevice.configuration, which does not reference mapper Mapper[NetworkConfiguration(network_configurations)]",
+    "One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[NetworkConfiguration(network_configurations)]'. Original exception was: reverse_property 'configuration' on relationship NetworkConfiguration.devices references relationship NetworkDevice.configuration, which does not reference mapper Mapper[NetworkConfiguration(network_configurations)]",
+    "One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[NetworkConfiguration(network_configurations)]'. Original exception was: reverse_property 'configuration' on relationship NetworkConfiguration.devices references relationship NetworkDevice.configuration, which does not reference mapper Mapper[NetworkConfiguration(network_configurations)]",
+    "One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[NetworkConfiguration(network_configurations)]'. Original exception was: reverse_property 'configuration' on relationship NetworkConfiguration.devices references relationship NetworkDevice.configuration, which does not reference mapper Mapper[NetworkConfiguration(network_configurations)]",
+    "One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[NetworkConfiguration(network_configurations)]'. Original exception was: reverse_property 'configuration' on relationship NetworkConfiguration.devices references relationship NetworkDevice.configuration, which does not reference mapper Mapper[NetworkConfiguration(network_configurations)]",
+    "One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[NetworkConfiguration(network_configurations)]'. Original exception was: reverse_property 'configuration' on relationship NetworkConfiguration.devices references relationship NetworkDevice.configuration, which does not reference mapper Mapper[NetworkConfiguration(network_configurations)]",
+    "One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[NetworkConfiguration(network_configurations)]'. Original exception was: reverse_property 'configuration' on relationship NetworkConfiguration.devices references relationship NetworkDevice.configuration, which does not reference mapper Mapper[NetworkConfiguration(network_configurations)]",
+    "One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[NetworkConfiguration(network_configurations)]'. Original exception was: reverse_property 'configuration' on relationship NetworkConfiguration.devices references relationship NetworkDevice.configuration, which does not reference mapper Mapper[NetworkConfiguration(network_configurations)]",
+    "One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[NetworkConfiguration(network_configurations)]'. Original exception was: reverse_property 'configuration' on relationship NetworkConfiguration.devices references relationship NetworkDevice.configuration, which does not reference mapper Mapper[NetworkConfiguration(network_configurations)]",
+    "One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[NetworkConfiguration(network_configurations)]'. Original exception was: reverse_property 'configuration' on relationship NetworkConfiguration.devices references relationship NetworkDevice.configuration, which does not reference mapper Mapper[NetworkConfiguration(network_configurations)]",
+    "One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[NetworkConfiguration(network_configurations)]'. Original exception was: reverse_property 'configuration' on relationship NetworkConfiguration.devices references relationship NetworkDevice.configuration, which does not reference mapper Mapper[NetworkConfiguration(network_configurations)]",
+    "One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[NetworkConfiguration(network_configurations)]'. Original exception was: reverse_property 'configuration' on relationship NetworkConfiguration.devices references relationship NetworkDevice.configuration, which does not reference mapper Mapper[NetworkConfiguration(network_configurations)]",
+    "One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[NetworkConfiguration(network_configurations)]'. Original exception was: reverse_property 'configuration' on relationship NetworkConfiguration.devices references relationship NetworkDevice.configuration, which does not reference mapper Mapper[NetworkConfiguration(network_configurations)]",
+    "One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[NetworkConfiguration(network_configurations)]'. Original exception was: reverse_property 'configuration' on relationship NetworkConfiguration.devices references relationship NetworkDevice.configuration, which does not reference mapper Mapper[NetworkConfiguration(network_configurations)]",
+    "One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[NetworkConfiguration(network_configurations)]'. Original exception was: reverse_property 'configuration' on relationship NetworkConfiguration.devices references relationship NetworkDevice.configuration, which does not reference mapper Mapper[NetworkConfiguration(network_configurations)]",
+    "One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[NetworkConfiguration(network_configurations)]'. Original exception was: reverse_property 'configuration' on relationship NetworkConfiguration.devices references relationship NetworkDevice.configuration, which does not reference mapper Mapper[NetworkConfiguration(network_configurations)]",
+    "One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[NetworkConfiguration(network_configurations)]'. Original exception was: reverse_property 'configuration' on relationship NetworkConfiguration.devices references relationship NetworkDevice.configuration, which does not reference mapper Mapper[NetworkConfiguration(network_configurations)]",
+    "One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[NetworkConfiguration(network_configurations)]'. Original exception was: reverse_property 'configuration' on relationship NetworkConfiguration.devices references relationship NetworkDevice.configuration, which does not reference mapper Mapper[NetworkConfiguration(network_configurations)]",
+    "One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[NetworkConfiguration(network_configurations)]'. Original exception was: reverse_property 'configuration' on relationship NetworkConfiguration.devices references relationship NetworkDevice.configuration, which does not reference mapper Mapper[NetworkConfiguration(network_configurations)]"
+  ]
+}

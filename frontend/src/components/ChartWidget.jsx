@@ -1,3 +1,10 @@
+/**
+ * ChartWidget
+ *
+ * Lightweight wrapper around Chart.js used by the dashboard demo. It
+ * creates a small bar chart for demonstration purposes. This comment is
+ * explanatory only and doesn't change behavior.
+ */
 import React, {useEffect, useRef} from 'react'
 import { Chart, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from 'chart.js'
 

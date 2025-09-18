@@ -3,6 +3,10 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from backend.src.db import Base
 
+
+"""Simple audit log entries tracking who changed what and when."""
+
+
 class AuditLog(Base):
     __tablename__ = "audit_logs"
     __table_args__ = {"extend_existing": True}

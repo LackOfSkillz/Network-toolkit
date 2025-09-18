@@ -1,4 +1,11 @@
+/**
+ * App
+ *
+ * Top-level React application component that chooses between login and
+ * dashboard pages. This header is purely descriptive.
+ */
 import React, {useState} from 'react'
+import './styles/responsive.css'
 import DashboardPage from './pages/DashboardPage'
 import LoginPage from './pages/LoginPage'
 import WelcomeTour from './components/WelcomeTour'

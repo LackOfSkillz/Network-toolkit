@@ -1,0 +1,169 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ForceDirectedLayout snapshots > matches desktop snapshot 1`] = `
+<svg
+  height="100%"
+  preserveAspectRatio="xMidYMid meet"
+  style="background: rgb(249, 250, 251);"
+  viewBox="0 0 800 600"
+  width="100%"
+>
+  <line
+    stroke="#94a3b8"
+    stroke-width="1"
+    x1="382.5336695733035"
+    x2="329.32015079992743"
+    y1="194.28413793667835"
+    y2="278.53368898986383"
+  />
+  <line
+    stroke="#94a3b8"
+    stroke-width="1"
+    x1="329.32015079992743"
+    x2="307.8917264021852"
+    y1="278.53368898986383"
+    y2="178.0304621719211"
+  />
+  <g
+    style="cursor: default;"
+    transform="translate(382.5336695733035,194.28413793667835)"
+  >
+    <circle
+      fill="#2563eb"
+      r="8"
+      stroke="#1e40af"
+      stroke-width="1"
+    />
+    <text
+      fill="#0f172a"
+      font-size="12"
+      x="12"
+      y="4"
+    >
+      A
+    </text>
+  </g>
+  <g
+    style="cursor: default;"
+    transform="translate(329.32015079992743,278.53368898986383)"
+  >
+    <circle
+      fill="#2563eb"
+      r="8"
+      stroke="#1e40af"
+      stroke-width="1"
+    />
+    <text
+      fill="#0f172a"
+      font-size="12"
+      x="12"
+      y="4"
+    >
+      B
+    </text>
+  </g>
+  <g
+    style="cursor: default;"
+    transform="translate(307.8917264021852,178.0304621719211)"
+  >
+    <circle
+      fill="#2563eb"
+      r="8"
+      stroke="#1e40af"
+      stroke-width="1"
+    />
+    <text
+      fill="#0f172a"
+      font-size="12"
+      x="12"
+      y="4"
+    >
+      C
+    </text>
+  </g>
+</svg>
+`;
+
+exports[`ForceDirectedLayout snapshots > matches tablet snapshot 1`] = `
+<svg
+  height="100%"
+  preserveAspectRatio="xMidYMid meet"
+  style="background: rgb(249, 250, 251);"
+  viewBox="0 0 800 600"
+  width="100%"
+>
+  <line
+    stroke="#94a3b8"
+    stroke-width="1"
+    x1="382.5336695733035"
+    x2="329.32015079992743"
+    y1="194.28413793667835"
+    y2="278.53368898986383"
+  />
+  <line
+    stroke="#94a3b8"
+    stroke-width="1"
+    x1="329.32015079992743"
+    x2="307.8917264021852"
+    y1="278.53368898986383"
+    y2="178.0304621719211"
+  />
+  <g
+    style="cursor: default;"
+    transform="translate(382.5336695733035,194.28413793667835)"
+  >
+    <circle
+      fill="#2563eb"
+      r="8"
+      stroke="#1e40af"
+      stroke-width="1"
+    />
+    <text
+      fill="#0f172a"
+      font-size="12"
+      x="12"
+      y="4"
+    >
+      A
+    </text>
+  </g>
+  <g
+    style="cursor: default;"
+    transform="translate(329.32015079992743,278.53368898986383)"
+  >
+    <circle
+      fill="#2563eb"
+      r="8"
+      stroke="#1e40af"
+      stroke-width="1"
+    />
+    <text
+      fill="#0f172a"
+      font-size="12"
+      x="12"
+      y="4"
+    >
+      B
+    </text>
+  </g>
+  <g
+    style="cursor: default;"
+    transform="translate(307.8917264021852,178.0304621719211)"
+  >
+    <circle
+      fill="#2563eb"
+      r="8"
+      stroke="#1e40af"
+      stroke-width="1"
+    />
+    <text
+      fill="#0f172a"
+      font-size="12"
+      x="12"
+      y="4"
+    >
+      C
+    </text>
+  </g>
+</svg>
+`;

@@ -2,6 +2,14 @@ from sqlalchemy import Column, Integer, String, DateTime, JSON
 from sqlalchemy.sql import func
 from backend.src.db import Base
 
+
+"""
+Stores diagnostic test requests and their JSON results (e.g., ping/traceroute).
+
+Used by UI-driven tests and integration flows to persist diagnostic outputs.
+"""
+
+
 class DiagnosticTest(Base):
     __tablename__ = "diagnostic_tests"
     __table_args__ = {"extend_existing": True}

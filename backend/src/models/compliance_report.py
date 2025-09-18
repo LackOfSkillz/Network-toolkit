@@ -3,6 +3,14 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from backend.src.db import Base
 
+
+"""
+Stores the result of a compliance evaluation run for a configuration.
+
+`details` contains a JSON-serializable payload with the findings.
+"""
+
+
 class ComplianceReport(Base):
     __tablename__ = "compliance_reports"
     __table_args__ = {"extend_existing": True}

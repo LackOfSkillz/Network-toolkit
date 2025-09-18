@@ -3,6 +3,15 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from backend.src.db import Base
 
+"""
+Represents a firewall rule associated with a network configuration.
+
+Fields include addressing, port/protocol, action (allow/deny), and an
+optional priority. Rules belong to a `NetworkConfiguration` via a foreign key
+relationship.
+"""
+
+
 class FirewallRule(Base):
     __tablename__ = "firewall_rules"
     __table_args__ = {"extend_existing": True}

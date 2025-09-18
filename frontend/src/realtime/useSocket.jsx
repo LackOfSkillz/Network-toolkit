@@ -1,3 +1,9 @@
+/**
+ * useSocket helper
+ *
+ * Tiny hook that subscribes to a socket event and calls the provided
+ * handler. Kept intentionally minimal; purely documented here.
+ */
 import { useEffect } from 'react'
 import { useSocketContext } from './SocketProvider'
 

@@ -1,9 +1,18 @@
+"""
+Service layer for dashboard widgets.
+
+The service validates widget types and performs simple CRUD returning
+plain dictionaries suitable for JSON responses. Keep logic here small so the
+API layer's responsibilities are limited to request/response translation.
+"""
+
 from typing import Dict, Any
 from sqlalchemy.orm import Session
-from backend.src.models.dashboard_widget import DashboardWidget
+from backend.src.models import DashboardWidget
 
 
 class DashboardWidgetService:
+    # only a small set of widget types are allowed today
     ALLOWED_TYPES = {"chart", "table"}
 
     def create(self, db: Session, name: str, wtype: str, config: Dict[str, Any]) -> Dict[str, Any]:

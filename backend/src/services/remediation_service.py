@@ -1,11 +1,16 @@
 from typing import Dict, Any, List
 
 
-class RemediationService:
-    """Create simple remediation patches from suggestions.
+"""
+Create remediation patches from suggestion hints.
 
-    patches: { device: [ { action: 'add'|'remove', 'rule': {...} } ] }
-    """
+The service converts simple suggestion dictionaries (like add/remove rule)
+into a normalized patch list which could be consumed by an automation
+engine. This module is intentionally small and deterministic for testing.
+"""
+
+
+class RemediationService:
 
     def create_patches(self, suggestions: Dict[str, List[Dict[str, Any]]]) -> Dict[str, List[Dict[str, Any]]]:
         patches: Dict[str, List[Dict[str, Any]]] = {}

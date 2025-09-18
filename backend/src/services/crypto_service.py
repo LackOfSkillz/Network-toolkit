@@ -1,3 +1,18 @@
+"""
+Lightweight crypto helpers for encrypting credential material.
+
+This module manages a Fernet key and exposes convenience functions to
+encrypt/decrypt bytes and text. Key selection order (highest to lowest):
+1) environment variable `CRED_KEY` (base64 or raw),
+2) key file at `CRED_KEY_PATH`,
+3) generate a new key and try to persist it to disk.
+
+Important notes for non-developers:
+- This implementation is intended for development and tests only. In
+  production you should use a secure key management system (KMS) and never
+  store persistent keys in the repo or writable project directories.
+"""
+
 from cryptography.fernet import Fernet
 import os
 import base64
@@ -35,7 +50,7 @@ def _ensure_key() -> bytes:
     try:
         open(KEY_PATH, "wb").write(key)
     except Exception:
-        # best-effort only
+        # best-effort only — don't fail startup if we can't persist the key
         pass
     return key
 

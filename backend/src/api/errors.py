@@ -1,3 +1,12 @@
+"""
+Central API error types and handlers.
+
+Provides an `APIError` exception which can be raised from route handlers
+and converted to structured JSON responses via `api_error_handler`. A
+fallback `generic_exception_handler` returns a 500 JSON error for unexpected
+exceptions.
+"""
+
 from fastapi import Request
 from fastapi.responses import JSONResponse
 import logging

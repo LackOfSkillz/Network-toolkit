@@ -1,11 +1,14 @@
+"""
+Detect configuration drift by comparing desired to observed rules per device.
+
+The compare function returns a report listing rules that are missing (in
+desired but not observed) and extra (in observed but not desired).
+"""
+
 from typing import Dict, Any, List
 
 
 class DriftDetectionService:
-    """Simple drift detection comparing desired vs observed device rules.
-
-    compare(desired, observed) -> { device: { missing: [...], extra: [...] } }
-    """
 
     def compare(self, desired: Dict[str, Any], observed: Dict[str, Any]) -> Dict[str, Any]:
         report: Dict[str, Any] = {}

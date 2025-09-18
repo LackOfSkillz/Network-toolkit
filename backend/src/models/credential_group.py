@@ -2,6 +2,15 @@ from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.sql import func
 from backend.src.db import Base
 
+
+"""
+Stores credential groups with encrypted blobs for password/private keys.
+
+The service layer is responsible for encrypting/decrypting these fields so
+the ORM stores only encrypted text.
+"""
+
+
 class CredentialGroup(Base):
     __tablename__ = "credential_groups"
     __table_args__ = {"extend_existing": True}

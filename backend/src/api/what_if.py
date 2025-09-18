@@ -4,13 +4,23 @@ from sqlalchemy.orm import Session
 from backend.src.services.what_if_service import WhatIfService
 from backend.src.services.auth_dependency import get_current_user_dependency
 from backend.src.db import get_db
-from backend.src.models.network_device import NetworkDevice
-from backend.src.models.firewall_rule import FirewallRule
+from backend.src.models import NetworkDevice, FirewallRule
+
+"""
+Lightweight what-if analysis endpoint.
+
+This endpoint builds a small representation of the network (devices and
+their allowed ports) from either a saved configuration or a simple default
+set, then delegates to the `WhatIfService` which runs the deterministic
+rule engine to see how adding a rule would affect packet decisions.
+"""
 
 router = APIRouter()
 
 
 class WhatIfRule(BaseModel):
+    """Input model describing a firewall rule to simulate."""
+
     action: str
     proto: str
     port: int

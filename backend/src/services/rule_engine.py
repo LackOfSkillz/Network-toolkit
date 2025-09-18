@@ -1,3 +1,11 @@
+"""
+Simple deterministic rule engine utilities.
+
+This module provides a compact `evaluate_rules` function used by the
+what-if modeling and packet decision simulations. It's intentionally small
+and pure so it is deterministic and easy to unit test.
+"""
+
 from typing import List, Dict, Any, Optional
 import ipaddress
 

@@ -1,3 +1,10 @@
+/**
+ * LoginPage
+ *
+ * Presents a minimal login form. For the prototype the handler simply
+ * calls `onLogin` with a token; in a real app this would POST to an
+ * authentication endpoint.
+ */
 import React, {useState} from 'react'
 
 export default function LoginPage({onLogin}){

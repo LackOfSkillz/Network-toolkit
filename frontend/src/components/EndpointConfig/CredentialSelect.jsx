@@ -1,3 +1,10 @@
+/**
+ * CredentialSelect
+ *
+ * Small select control that fetches available credential groups from the
+ * backend and exposes a simple onChange callback. Documented for
+ * non-developers; no behavior changes.
+ */
 import React, {useEffect, useState} from 'react'
 import axios from 'axios'
 

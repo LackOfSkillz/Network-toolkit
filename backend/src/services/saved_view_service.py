@@ -1,6 +1,14 @@
+"""
+Service layer for SavedView CRUD operations.
+
+This small helper converts ORM objects to plain python dictionaries that are
+returned by the API layer. The service intentionally stores the `view_blob`
+as a string to keep the DB simple — the UI should treat it as JSON.
+"""
+
 from typing import Dict, Any
 from sqlalchemy.orm import Session
-from backend.src.models.saved_view import SavedView
+from backend.src.models import SavedView
 
 
 class SavedViewService:

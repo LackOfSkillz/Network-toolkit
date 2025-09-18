@@ -3,6 +3,13 @@ from sqlalchemy.sql import func
 from backend.src.db import Base
 
 
+"""
+Represents a user-defined compliance policy stored as a JSON/text blob.
+
+The evaluation logic lives in `services.custom_compliance_policy_service`.
+"""
+
+
 class CustomCompliancePolicy(Base):
     __tablename__ = "custom_compliance_policies"
     __table_args__ = {"extend_existing": True}

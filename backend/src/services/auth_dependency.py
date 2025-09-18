@@ -27,7 +27,11 @@ def get_current_user(token: str | None):
 
 
 def get_current_user_dependency(authorization: str | None = Header(None)):
-    """FastAPI-ready dependency that extracts Bearer token from Authorization header and returns user."""
+    """FastAPI-ready dependency that extracts Bearer token from Authorization header and returns user.
+
+    Example Authorization header: "Bearer <token>". Tests commonly call
+    `get_current_user` directly with a token string to avoid HTTP plumbing.
+    """
     token = None
     if authorization and authorization.lower().startswith("bearer "):
         token = authorization.split(" ", 1)[1]

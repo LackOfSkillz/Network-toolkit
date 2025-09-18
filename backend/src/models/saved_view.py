@@ -3,6 +3,14 @@ from sqlalchemy.sql import func
 from backend.src.db import Base
 
 
+"""
+Table storing user-saved UI views.
+
+`view_blob` holds the UI state as a JSON-serializable string. The API and
+service layers convert it to/from Python structures as needed.
+"""
+
+
 class SavedView(Base):
     __tablename__ = "saved_views"
     __table_args__ = {"extend_existing": True}

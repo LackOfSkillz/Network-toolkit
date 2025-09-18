@@ -1,3 +1,21 @@
+"""
+Optional real-time collaboration layer.
+
+This module attempts to import `python-socketio` and expose an ASGI app
+(`socket_app`) that can be mounted into the FastAPI application. If the
+optional dependency is missing, a minimal fallback ASGI app is provided so
+the application remains importable and tests can run without realtime.
+
+The real-time features are prototype-level and use in-memory session and room
+tracking; a production system should use a robust message broker and scaled
+Socket.IO server.
+
+Notes for operators and test authors:
+- The socket server is optional; tests should not assume realtime is available.
+- When `python-socketio` is not installed the module provides a small ASGI
+    app that returns 501 for HTTP and closes websocket connections.
+"""
+
 from typing import Dict, Any
 import logging
 from fastapi import Request
@@ -13,7 +31,9 @@ try:
     # ASGI app for mounting under FastAPI
     socket_app = socketio.ASGIApp(sio)
 
-    # Simple in-memory room tracking (prototype only)
+    # Simple in-memory room tracking (prototype only). In production this
+    # should be replaced by a shared store (Redis, database, or message
+    # broker) so multiple worker processes can see the same presence/rooms.
     connected_clients: Dict[str, Dict[str, Any]] = {}
 
 
@@ -62,7 +82,8 @@ try:
 
     # Optional helper to integrate with FastAPI request lifecycle
     async def attach_request_context(request: Request):
-        # Inspect headers for auth token if needed
+        # Inspect headers for auth token if needed. The returned dict can be
+        # used by event handlers to enrich session data for authorization.
         token = request.headers.get("authorization")
         return {"auth_header": token}
 
@@ -78,6 +99,8 @@ except Exception:
         if scope["type"] == "http":
             from starlette.responses import JSONResponse
 
+            # Inform callers that realtime is not enabled with 501 so
+            # clients can degrade gracefully.
             response = JSONResponse({"error": "realtime_not_enabled"}, status_code=501)
             await response(scope, receive, send)
             return

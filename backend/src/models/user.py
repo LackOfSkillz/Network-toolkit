@@ -2,6 +2,10 @@ from sqlalchemy import Column, String, Integer, DateTime
 from sqlalchemy.sql import func
 from backend.src.db import Base
 
+
+"""Simple user model used by the prototype authentication service."""
+
+
 class User(Base):
     __tablename__ = "users"
     __table_args__ = {"extend_existing": True}

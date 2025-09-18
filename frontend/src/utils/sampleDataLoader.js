@@ -1,3 +1,11 @@
+/**
+ * sampleDataLoader.js
+ *
+ * Provides demo/sample data used by the frontend. It attempts to POST a
+ * representative payload to the backend; when the backend is unavailable
+ * it falls back to storing sample data in localStorage so the UI can
+ * still demonstrate behavior offline.
+ */
 // Minimal sample data loader for demos.
 // Tries to POST to known backend endpoints and falls back to localStorage when unavailable.
 

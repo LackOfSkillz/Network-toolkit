@@ -5,10 +5,24 @@ from backend.src.services.saved_view_service import SavedViewService
 from backend.src.services.auth_dependency import get_current_user_dependency
 from backend.src.db import get_db
 
+"""
+API for creating, listing, retrieving and updating user-saved UI views.
+
+Saved views are small JSON blobs stored so users can return to a particular
+dashboard or filter layout later. These endpoints are intentionally thin and
+delegate business logic to `SavedViewService`.
+"""
+
 router = APIRouter()
 
 
 class SavedViewIn(BaseModel):
+    """Input payload when creating or updating a saved view.
+
+    - name: a human-readable label
+    - view_blob: a JSON-serializable dictionary containing view state
+    """
+
     name: str
     view_blob: dict
 
@@ -16,6 +30,7 @@ class SavedViewIn(BaseModel):
 @router.post("/saved-views", status_code=201)
 def create_saved_view(payload: SavedViewIn, db: Session = Depends(get_db), user=Depends(get_current_user_dependency)):
     svc = SavedViewService()
+    # owner is taken from the authenticated user; fallback to 'anonymous'
     res = svc.create(db, payload.name, getattr(user, "username", "anonymous"), payload.view_blob)
     return res
 

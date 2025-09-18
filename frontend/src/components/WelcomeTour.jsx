@@ -1,3 +1,9 @@
+/**
+ * WelcomeTour
+ *
+ * A tiny multi-step tour used to introduce the UI. Documented here to
+ * help non-developers understand its role.
+ */
 import React, {useState, useEffect} from 'react'
 
 export default function WelcomeTour({onClose}){

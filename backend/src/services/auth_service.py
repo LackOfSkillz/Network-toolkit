@@ -1,3 +1,12 @@
+"""
+Prototype authentication service.
+
+This file contains a very small, in-memory user store and helper functions to
+authenticate credentials and issue JWTs. It is suitable for local
+development and tests but must be replaced for production (use secure secret
+management, persistent user storage, refresh tokens, etc.).
+"""
+
 from passlib.context import CryptContext
 from datetime import datetime, timedelta
 from jose import jwt
@@ -12,6 +21,8 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 class UserObj:
+    """Tiny container object representing a user for the prototype."""
+
     def __init__(self, username: str, password_hash: str, role: str = "user"):
         self.username = username
         self.password_hash = password_hash
@@ -19,6 +30,12 @@ class UserObj:
 
 
 class AuthService:
+    """Authentication helpers.
+
+    - authenticate_user: verifies username/password against an in-memory store
+    - create_access_token: signs a JWT used by the frontend for authenticated requests
+    """
+
     def __init__(self):
         # In-memory demo user store for prototype
         self._users = {
@@ -38,6 +55,12 @@ class AuthService:
         return self._users.get(username)
 
     def create_access_token(self, data: dict, expires_delta: timedelta | None = None) -> str:
+        """Return a signed JWT containing `data` and expiration.
+
+        The token uses a symmetric secret (HS256) for simplicity in the demo.
+        Note: expiry timestamps are naive UTC datetimes; production systems
+        should prefer timezone-aware datetimes (and refresh token flows).
+        """
         to_encode = data.copy()
         if expires_delta:
             expire = datetime.utcnow() + expires_delta

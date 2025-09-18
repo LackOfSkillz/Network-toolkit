@@ -5,10 +5,25 @@ from backend.src.services.dashboard_widget_service import DashboardWidgetService
 from backend.src.services.auth_dependency import get_current_user_dependency
 from backend.src.db import get_db
 
+"""
+Dashboard widget CRUD API.
+
+Widgets are small UI components (charts, tables) that users can save and
+reuse on their dashboards. The API validates widget types and delegates
+storage to `DashboardWidgetService`.
+"""
+
 router = APIRouter()
 
 
 class WidgetIn(BaseModel):
+    """Input model describing a dashboard widget.
+
+    - name: widget label
+    - type: one of the supported widget types (chart, table)
+    - config: widget-specific configuration blob
+    """
+
     name: str
     type: str
     config: dict

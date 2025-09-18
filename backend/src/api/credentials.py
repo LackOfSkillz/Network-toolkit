@@ -1,3 +1,11 @@
+"""
+API endpoints to create and retrieve credential groups.
+
+This module exposes two simple endpoints used by the UI to store and fetch
+credential entries (username/password or private key). The endpoints rely on
+the service layer to perform the actual database operations.
+"""
+
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
@@ -9,6 +17,12 @@ router = APIRouter()
 
 
 class CredentialIn(BaseModel):
+    """Input schema when creating credentials from the UI.
+
+    Most fields are optional because credentials can be a username/password or
+    a private key. The `name` is a user-visible label.
+    """
+
     name: str
     username: str | None = None
     password: str | None = None
@@ -16,6 +30,8 @@ class CredentialIn(BaseModel):
 
 
 class CredentialOut(BaseModel):
+    """Response shape returned to clients for a credential group."""
+
     id: int
     name: str
     username: str | None = None
@@ -25,6 +41,12 @@ class CredentialOut(BaseModel):
 
 @router.post("/credentials", response_model=CredentialOut, status_code=201)
 async def create_credential(payload: CredentialIn, db: Session = Depends(get_db), user=Depends(get_current_user_dependency)):
+    """Create a new credential group.
+
+    The API returns the created group's id and echoes the fields that were
+    provided. Passwords and keys are passed through to the service layer which
+    is responsible for any secure storage decisions.
+    """
     svc = CredentialService(db)
     cg = svc.create_credential_group(payload.name, payload.username, payload.password, payload.private_key)
     if not cg:
@@ -40,6 +62,7 @@ async def create_credential(payload: CredentialIn, db: Session = Depends(get_db)
 
 @router.get("/credentials/{cg_id}", response_model=CredentialOut)
 async def get_credential(cg_id: int, db: Session = Depends(get_db), user=Depends(get_current_user_dependency)):
+    """Retrieve a credential group by its numeric id."""
     svc = CredentialService(db)
     res = svc.get_credential_group(cg_id)
     if not res:
