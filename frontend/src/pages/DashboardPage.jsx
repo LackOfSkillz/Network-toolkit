@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import ChartWidget from '../components/ChartWidget'
 import TableWidget from '../components/TableWidget'
+import EmptyState from '../components/EmptyState'
 
 export default function DashboardPage(){
   const [widgets, setWidgets] = useState([])
@@ -17,11 +18,15 @@ export default function DashboardPage(){
   return (
     <div>
       <h1>Dashboard</h1>
-      {widgets.map(w=> (
-        <div key={w.id} style={{border:'1px solid #ccc', padding:10, margin:10}}>
-          {w.type === 'chart' ? <ChartWidget config={{}} name={w.name}/> : <TableWidget config={{}} name={w.name}/>}
-        </div>
-      ))}
+      {widgets.length === 0 ? (
+        <EmptyState title="No widgets" message="You don't have any widgets yet. Add some from the dashboard settings." />
+      ) : (
+        widgets.map(w=> (
+          <div key={w.id} style={{border:'1px solid #ccc', padding:10, margin:10}}>
+            {w.type === 'chart' ? <ChartWidget config={{}} name={w.name}/> : <TableWidget config={{}} name={w.name}/>}
+          </div>
+        ))
+      )}
     </div>
   )
 }
