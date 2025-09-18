@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import DashboardPage from './pages/DashboardPage'
 import LoginPage from './pages/LoginPage'
+import WelcomeTour from './components/WelcomeTour'
 
 export default function App(){
   const [view, setView] = useState(localStorage.getItem('authToken') ? 'dashboard' : 'login')
@@ -20,7 +21,12 @@ export default function App(){
         <strong>Network Toolkit</strong>
         {view === 'dashboard' && <button style={{float:'right'}} onClick={logout}>Logout</button>}
       </header>
-      {view === 'login' ? <LoginPage onLogin={onLogin}/> : <DashboardPage />}
+      {view === 'login' ? <LoginPage onLogin={onLogin}/> : (
+        <div>
+          {localStorage.getItem('seenWelcomeTour') ? null : <WelcomeTour onClose={()=>{}} />}
+          <DashboardPage />
+        </div>
+      )}
     </div>
   )
 }
