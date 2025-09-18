@@ -5,6 +5,7 @@ from backend.src.db import Base
 
 class FirewallRule(Base):
     __tablename__ = "firewall_rules"
+    __table_args__ = {"extend_existing": True}
 
     id = Column(Integer, primary_key=True, index=True)
     source_ip = Column(String)
@@ -21,4 +22,4 @@ class FirewallRule(Base):
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
 
     configuration_id = Column(Integer, ForeignKey('network_configurations.id'))
-    configuration = relationship("NetworkConfiguration", back_populates="firewall_rules")
+    configuration = relationship("backend.src.models.network_configuration.NetworkConfiguration", back_populates="firewall_rules")

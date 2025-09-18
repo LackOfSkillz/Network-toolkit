@@ -4,6 +4,7 @@ from backend.src.db import Base
 
 class CredentialGroup(Base):
     __tablename__ = "credential_groups"
+    __table_args__ = {"extend_existing": True}
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, nullable=False)

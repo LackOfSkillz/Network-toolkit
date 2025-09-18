@@ -4,6 +4,7 @@ from backend.src.db import Base
 
 class DiagnosticTest(Base):
     __tablename__ = "diagnostic_tests"
+    __table_args__ = {"extend_existing": True}
 
     id = Column(Integer, primary_key=True, index=True)
     source_ip = Column(String)

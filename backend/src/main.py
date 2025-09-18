@@ -7,6 +7,11 @@ from backend.src.logging_config import configure_logging
 from backend.src.middleware.logging_middleware import RequestLoggingMiddleware
 # Ensure all models are imported so mappers are registered
 import backend.src.models  # noqa: F401
+from backend.src.realtime import socket_app
+from backend.src.api.errors import api_error_handler, generic_exception_handler, APIError
+from fastapi import Request
+from fastapi.responses import JSONResponse
+from fastapi import status
 
 app = FastAPI(title="Network Toolkit API - Prototype")
 
@@ -23,9 +28,10 @@ def on_startup():
 
 
 # Also create tables at import time to support test runners that don't
-# reliably trigger the startup event for every execution path.
-import backend.src.models  # noqa: F401
-Base.metadata.create_all(bind=engine)
+# NOTE: avoid creating tables at import time — tests import this module during
+# collection which can lead to duplicate Table registration in SQLAlchemy
+# when pytest imports modules multiple times. Table creation is handled on
+# startup (above) or explicitly by test fixtures.
 
 
 @app.get("/health")
@@ -49,3 +55,12 @@ app.include_router(drift_detection_api.router)
 app.include_router(custom_compliance_api.router)
 app.include_router(saved_views_api.router)
 app.include_router(dashboard_widgets_api.router)
+
+
+# Mount Socket.IO ASGI app at /socket.io
+app.mount("/socket.io", socket_app)
+
+
+# Add API exception handlers
+app.add_exception_handler(APIError, api_error_handler)
+app.add_exception_handler(Exception, generic_exception_handler)

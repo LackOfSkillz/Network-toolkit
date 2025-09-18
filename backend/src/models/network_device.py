@@ -5,6 +5,7 @@ from backend.src.db import Base
 
 class NetworkDevice(Base):
     __tablename__ = "network_devices"
+    __table_args__ = {"extend_existing": True}
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, nullable=False)
@@ -16,4 +17,4 @@ class NetworkDevice(Base):
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
 
     configuration_id = Column(Integer, ForeignKey('network_configurations.id'))
-    configuration = relationship("NetworkConfiguration", back_populates="devices")
+    configuration = relationship("backend.src.models.network_configuration.NetworkConfiguration", back_populates="devices")

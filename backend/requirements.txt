@@ -12,3 +12,5 @@ httpx
 pytest
 pytest-asyncio
 pytest-cov
+python-socketio[asyncio_client]
+python-engineio
